@@ -38,8 +38,10 @@
 #include "porta.h"
 
 Dexed::Dexed(uint8_t maxnotes, uint16_t rate)
- : samplerate{float32_t(rate)},
-   max_notes{maxnotes}
+ : voices{nullptr},
+  samplerate{float32_t(rate)},
+   max_notes{maxnotes},
+   engineMsfa{nullptr}, engineMkI{nullptr}, engineOpl{nullptr}
 
 {
 Serial.print("Dexed instance ..."); Serial.flush();

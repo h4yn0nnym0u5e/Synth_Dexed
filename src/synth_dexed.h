@@ -57,11 +57,11 @@
 
 
 #if defined(TEENSYDUINO)
-class AudioSynthDexed : public AudioStream, public Dexed
+class AudioSynthDexed : public Dexed, public AudioStream
 {
   public:
 
-    AudioSynthDexed(uint8_t max_notes, uint16_t sample_rate) : AudioStream(0, NULL), Dexed(max_notes,sample_rate) { };
+    AudioSynthDexed(uint8_t max_notes, uint16_t sample_rate) : Dexed(max_notes,sample_rate), AudioStream(0, NULL)  { };
 
   protected:
     const uint16_t audio_block_time_us = 1000000 / (DEXED_SAMPLE_RATE / AUDIO_BLOCK_SAMPLES);
