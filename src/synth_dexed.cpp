@@ -3,7 +3,7 @@
 
    synth_dexed is a port of the Dexed sound engine (https://github.com/asb2m10/dexed)
    as library for the Teensy-3.5/3.6/4.x with an audio shield.
-   Dexed ist heavily based on https://github.com/google/music-synthesizer-for-android
+   Dexed is heavily based on https://github.com/google/music-synthesizer-for-android
 
    (c)2018-2021 H. Wirtz <wirtz@parasitstudio.de>
 

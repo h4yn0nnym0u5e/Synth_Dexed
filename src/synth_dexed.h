@@ -3,7 +3,7 @@
 
    synth_dexed is a port of the Dexed sound engine (https://github.com/asb2m10/dexed)
    as library for the Teensy-3.5/3.6/4.x with an audio shield.
-   Dexed ist heavily based on https://github.com/google/music-synthesizer-for-android
+   Dexed is heavily based on https://github.com/google/music-synthesizer-for-android
 
    (c)2018-2021 H. Wirtz <wirtz@parasitstudio.de>
 
@@ -32,7 +32,7 @@
 
 #define SYNTH_DEXED_VERSION "1.0.1"
 //#define DEBUG 1
-#define SAMPLE_RATE 44100
+#define DEXED_SAMPLE_RATE AUDIO_SAMPLE_RATE // 44100
 
 #define TRANSPOSE_FIX 24
 #define VOICE_SILENCE_LEVEL 1100
@@ -64,7 +64,7 @@ class AudioSynthDexed : public AudioStream, public Dexed
     AudioSynthDexed(uint8_t max_notes, uint16_t sample_rate) : AudioStream(0, NULL), Dexed(max_notes,sample_rate) { };
 
   protected:
-    const uint16_t audio_block_time_us = 1000000 / (SAMPLE_RATE / AUDIO_BLOCK_SAMPLES);
+    const uint16_t audio_block_time_us = 1000000 / (DEXED_SAMPLE_RATE / AUDIO_BLOCK_SAMPLES);
     volatile bool in_update = false;
     void update(void);
 };
