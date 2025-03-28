@@ -38,22 +38,28 @@
 #include "porta.h"
 
 Dexed::Dexed(uint8_t maxnotes, uint16_t rate)
-{
-  samplerate = float32_t(rate);
+ : samplerate{float32_t(rate)},
+   max_notes{maxnotes}
 
+{
+Serial.print("Dexed instance ..."); Serial.flush();
   Exp2::init();
   Tanh::init();
   Sin::init();
+Serial.print(" maths ..."); Serial.flush();
 
   Freqlut::init(rate);
   Lfo::init(rate);
   PitchEnv::init(rate);
   Env::init_sr(rate);
   Porta::init_sr(rate);
+Serial.print(" control ..."); Serial.flush();
   fx.init(rate);
+Serial.print(" fx ..."); Serial.flush();
 
   currentNote = 0;
   resetControllers();
+Serial.print(" reset ..."); Serial.flush();
   controllers.masterTune = 0;
   controllers.opSwitch = 0x3f; // enable all operators
   lastKeyDown = -1;
@@ -77,10 +83,12 @@ Dexed::Dexed(uint8_t maxnotes, uint16_t rate)
   }
   else
     voices = NULL;
+Serial.print(" voices ..."); Serial.flush();
 
   used_notes=max_notes;
   setMonoMode(false);
   loadInitVoice();
+Serial.print(" voice init ..."); Serial.flush();
 
   xrun = 0;
   render_time_max = 0;
@@ -91,8 +99,9 @@ Dexed::Dexed(uint8_t maxnotes, uint16_t rate)
   engineMsfa = new EngineMsfa;
   engineMkI = new EngineMkI;
   engineOpl = new EngineOpl;
+Serial.print(" create engines ..."); Serial.flush();
   setEngineType(MKI);
-
+Serial.println(" created"); Serial.flush();
 }
 
 Dexed::~Dexed()
@@ -102,6 +111,10 @@ Dexed::~Dexed()
   for (uint8_t note = 0; note < max_notes; note++)
     delete voices[note].dx7_note;
   delete[] voices;
+  delete engineMsfa;
+  delete engineMkI;
+  delete engineOpl;
+Serial.println("Dexed instance destroyed");
 }
 
 void Dexed::setEngineType(uint8_t engine)
